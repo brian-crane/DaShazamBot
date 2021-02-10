@@ -1,14 +1,15 @@
 
 import praw
+import requests
+import Private
 
 print("I'm back baby.")
 
 
 
 
-import requests
 data = {
-    'api_token': '4d8b1af478dfc4bbbeedec82e9878560',
+    'api_token': Private.get_api_key(),
     'return': 'apple_music,spotify',
 }
 files = {
