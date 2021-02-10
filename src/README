@@ -9,7 +9,7 @@
 Class Breakdown
 
 File Format: .cj
-FileName: <user> wants a request on <postTitle[0:20] from <subreddit> at <timeCreated>
+FileName: <user> wants a request on <postTitle[0:20]> from <subreddit> at <timeCreated>
 Contents:
     Title: Reddit Post Title [0:20]
     Comment: Full Reddit Comment, with \n removed
@@ -19,3 +19,30 @@ RedditMentionBot:
     Constantly running in the background, waiting for reddit mentions
     When a mention is created, create a cj file for the Processor to pick up
 
+RedditProcessor:
+    Constantly running in background, waiting for CJ files to be created.
+    Once it sees a file it:
+        1. Downloads the video (audio only if possible) to the disc.
+        2. Cut the media into a 5 second clip starting at 30% way through song (Wadsworth Constant)
+        3. Save the audio as a small mp3
+        4. Send the mp3 to audD to get analyzed
+        5. If match found:
+            a) Form Reddit Comment including:
+                i) Song Name, Artist Name, Year Published
+                ii) Links to youtube or spotify to listen to the song
+            b) Move the CJ file to Succesfully Processed Folder
+            c) Delete the local mp3 file
+        6. If match NOT found:
+            a) Leave a short comment saying I'm sorry but I could not find a match
+            b) Move BOTH mp3 and file into Failed Folder
+
+Helper Classes needed:
+    1. FileHelper
+        a) Reads, writes text files into and out of Strings
+        b) Checks if a file exists
+        c) Deletes Folders and files
+    2. Reddit Comment Helper
+        a) Leaves comments when provided a String
+    3. audD interface
+        a) Accepts an mp3 file and returns a <Boolean, String> pair
+        b) Will be the main interface with audD
