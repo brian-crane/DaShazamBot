@@ -1,0 +1,21 @@
+1. Get Reddit Page Link
+2. Extract full audio from many sources such as v.reddit, youtube, dailymotion, soundcloud, etc
+3. Parse out a 4 second clip from around 30 percent into audio (Wadsworth Constant)
+4. Send to AudD API to recognize song
+5. Parse json response and form comment
+6. Leave comment with track info and wherre they can download or learn more about the song.
+
+
+Class Breakdown
+
+File Format: .cj
+FileName: <user> wants a request on <postTitle[0:20] from <subreddit> at <timeCreated>
+Contents:
+    Title: Reddit Post Title [0:20]
+    Comment: Full Reddit Comment, with \n removed
+
+
+RedditMentionBot:
+    Constantly running in the background, waiting for reddit mentions
+    When a mention is created, create a cj file for the Processor to pick up
+
